@@ -47,18 +47,23 @@ public class Account {
 		return balance;
 	}
 	
-	public Double deposit(Double amount) {
-		return balance =+ amount;
+	public void deposit(Double amount) {
+		balance += amount;
 	}
 	
-	public Double withdraw(Double amount) throws DomainException {
-		if(balance == 0 || amount > balance) {
+	public void withdraw(Double amount) throws DomainException {
+		validatewithdraw(amount);
+		balance -= amount;
+	}
+	
+	private void validatewithdraw(Double amount) throws DomainException {
+		if(balance == 0 || amount > getBalance()) {
 			throw new DomainException("Not enough balance");
 		}
-		else if(amount > withdrawLimit) {
+		if(amount > getWithdrawLimit()) {
 			throw new DomainException("The amount exceeds withdraw limit");
 		}
-		return balance =- amount;
+		
 	}
 	 
 	
